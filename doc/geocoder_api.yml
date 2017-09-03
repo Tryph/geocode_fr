@@ -1,0 +1,437 @@
+swagger: '2.0'
+info:
+  description: >-
+   This is the API specification for the France geocoder
+  version: 0.0.0
+  title: France Geocoder
+  # termsOfService: 'none for the moment'
+  contact:
+    email: skorski.anthony@gmail.com
+  # license:
+  #   name: Apache 2.0
+  #   url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+# host: petstore.swagger.io
+# basePath: /v2
+# tags:
+#   - name: pet
+#     description: Everything about your Pets
+#     externalDocs:
+#       description: Find out more
+#       url: 'http://swagger.io'
+#   - name: store
+#     description: Access to Petstore orders
+#   - name: user
+#     description: Operations about user
+#     externalDocs:
+#       description: Find out more about our store
+#       url: 'http://swagger.io'
+# schemes:
+#   - http
+
+definitions:
+  Region:
+    type: object
+    properties:
+      goc:
+        type: integer
+        format: int64
+      name:
+        type: string
+      capital:
+        $ref: '#/definitions/Municipality'
+      geometry_simple:
+        type: string
+      geometry_medium:
+        type: string
+      geometry_detail:
+        type: string
+  Department:
+    type: object
+    properties:
+      goc:
+        type: integer
+        format: int64
+      name:
+        type: string
+      capital:
+        $ref: '#/definitions/Municipality'
+      region:
+        $ref: '#/definitions/Region'
+      geometry_simple:
+        type: string
+      geometry_medium:
+        type: string
+      geometry_detail:
+        type: string
+  Municipality:
+    type: object
+    properties:
+      goc:
+        type: integer
+        format: int64
+      name:
+        type: string
+      position:
+        type: string
+      department:
+        $ref: '#/definitions/Department'
+      geometry_simple:
+        type: string
+      geometry_medium:
+        type: string
+      geometry_detail:
+        type: string
+  ZipCode:
+    type: object
+    properties:
+      code:
+        type: string
+      municipalities:
+        type: array
+        items:
+          $ref: '#/definitions/Municipality'
+  Way:
+    type: object
+    properties:
+      id:
+        type: integer
+        format: int64
+      name:
+        type: string
+      municipality:
+        $ref: '#/definitions/Municipality'
+      geometry_simple:
+        type: string
+      geometry_medium:
+        type: string
+      geometry_detail:
+        type: string
+  Address:
+    type: object
+    properties:
+      id:
+        type: integer
+        format: int64
+      number:
+        type: string
+      repetition:
+        type: string
+      way:
+        $ref: '#/definitions/Way'
+      position:
+        type: string
+  ApiResponse:
+    type: object
+    properties:
+      code:
+        type: integer
+        format: int32
+      type:
+        type: string
+      message:
+        type: string
+
+paths:
+  '/region/{goc}/':
+    get:
+      tags:
+        - region
+      summary: Retrieve a region by its Geographical Official Code
+      description: Returns a single region
+      operationId: get_region
+      produces:
+        - application/json
+      parameters:
+        - name: goc
+          in: path
+          description: Geographical Official Code of the region
+          required: true
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            $ref: '#/definitions/Region'
+        '400':
+          description: Invalid Geographical Official Code supplied
+        '404':
+          description: Region not found
+      security:
+        - api_key: []
+  '/region/{goc}/departments/':
+    get:
+      tags:
+        - region
+        - department
+      summary: Retrieve departments in a region from the Geographical Official Code of the region
+      description: Returns a list of departments
+      operationId: get_region_departments
+      produces:
+        - application/json
+      parameters:
+        - name: goc
+          in: path
+          description: Geographical Official Code of the region
+          required: true
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Department'
+        '400':
+          description: Invalid Geographical Official Code supplied
+        '404':
+          description: Region not found
+      security:
+        - api_key: []
+
+  '/department/{goc}/':
+    get:
+      tags:
+        - department
+      summary: Retrieve a department by its Geographical Official Code
+      description: Returns a single department
+      operationId: get_department
+      produces:
+        - application/json
+      parameters:
+        - name: goc
+          in: path
+          description: Geographical Official Code of the department
+          required: true
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            $ref: '#/definitions/Department'
+        '400':
+          description: Invalid Geographical Official Code supplied
+        '404':
+          description: Department not found
+      security:
+        - api_key: []
+  '/department/{goc}/municipalities/':
+    get:
+      tags:
+        - department
+        - municipality
+      summary: Retrieve municipalities in a department from the Geographical Official Code of the department
+      description: Returns a list of municipalities
+      operationId: get_department_municipalities
+      produces:
+        - application/json
+      parameters:
+        - name: goc
+          in: path
+          description: Geographical Official Code of the department
+          required: true
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Municipality'
+        '400':
+          description: Invalid Geographical Official Code supplied
+        '404':
+          description: Department not found
+      security:
+        - api_key: []
+
+  '/municipality/{goc}/':
+    get:
+      tags:
+        - municipality
+      summary: Retrieve a municipality by its Geographical Official Code
+      description: Returns a single municipality
+      operationId: get_municipality
+      produces:
+        - application/json
+      parameters:
+        - name: goc
+          in: path
+          description: Geographical Official Code of the municipality
+          required: true
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            $ref: '#/definitions/Municipality'
+        '400':
+          description: Invalid Geographical Official Code supplied
+        '404':
+          description: Municipality not found
+      security:
+        - api_key: []
+  '/municipality/{goc}/ways/':
+    get:
+      tags:
+        - municipality
+        - way
+      summary: Retrieve ways in a municipality from the Geographical Official Code of the municipality
+      description: Returns a list of ways
+      operationId: get_municipality_ways
+      produces:
+        - application/json
+      parameters:
+        - name: goc
+          in: path
+          description: Geographical Official Code of the municipality
+          required: true
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Way'
+        '400':
+          description: Invalid Geographical Official Code supplied
+        '404':
+          description: Municipality not found
+      security:
+        - api_key: []
+
+  '/way/{id}/':
+    get:
+      tags:
+        - way
+      summary: Retrieve a way by its id
+      description: Returns a single way
+      operationId: get_way
+      produces:
+        - application/json
+      parameters:
+        - name: id
+          in: path
+          description: id of the way
+          required: true
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            $ref: '#/definitions/Way'
+        '400':
+          description: Invalid id supplied
+        '404':
+          description: Way not found
+      security:
+        - api_key: []
+  '/way/{id}/addresses/':
+    get:
+      tags:
+        - way
+        - address
+      summary: Retrieve addresses in a way from the id of the way
+      description: Returns a list of addresses
+      operationId: get_way_addresses
+      produces:
+        - application/json
+      parameters:
+        - name: id
+          in: path
+          description: id of the way
+          required: true
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Address'
+        '400':
+          description: Invalid id supplied
+        '404':
+          description: Way not found
+      security:
+        - api_key: []
+
+  '/address/{id}/':
+    get:
+      tags:
+        - address
+      summary: Retrieve an address by its id
+      description: Returns a single address
+      operationId: get_address
+      produces:
+        - application/json
+      parameters:
+        - name: id
+          in: path
+          description: id of the address
+          required: true
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            $ref: '#/definitions/Address'
+        '400':
+          description: Invalid id supplied
+        '404':
+          description: Address not found
+      security:
+        - api_key: []
+
+  '/zipcode/{code}/':
+    get:
+      tags:
+        - zipcode
+      summary: Retrieve a zipcode by its code
+      description: Returns a single zipcode
+      operationId: get_zipcode
+      produces:
+        - application/json
+      parameters:
+        - name: code
+          in: path
+          description: code of the zipcode
+          required: true
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            $ref: '#/definitions/ZipCode'
+        '400':
+          description: Invalid code supplied
+        '404':
+          description: Zipcode not found
+      security:
+        - api_key: []
+
+securityDefinitions:
+  # petstore_auth:
+  #   type: oauth2
+  #   authorizationUrl: 'http://petstore.swagger.io/oauth/dialog'
+  #   flow: implicit
+  #   scopes:
+  #     'write:pets': modify pets in your account
+  #     'read:pets': read your pets
+  api_key:
+    type: apiKey
+    name: api_key
+    in: header
+# externalDocs:
+#   description: Find out more about Swagger
+#   url: 'http://swagger.io'
