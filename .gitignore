@@ -1,1 +1,5 @@
 .idea
+*.mo
+
+
+tool/postgres_docker/geocode_fr_db_dump.sql

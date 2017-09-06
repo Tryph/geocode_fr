@@ -1,0 +1,91 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-09-05 20:57+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: src/geocode_fr/database/management/commands/initsources.py:8
+msgid "Initilializes the geocoder's data sources table in the database"
+msgstr "Initialise la table des sources de données du géocodeur dans la base de donnée"
+
+#: src/geocode_fr/database/models.py:6
+msgid "data source"
+msgstr "source de données"
+
+#: src/geocode_fr/database/models.py:7
+msgid "data sources"
+msgstr "sources de données"
+
+#: src/geocode_fr/geocode_api/models.py:9
+msgid "region"
+msgstr "région"
+
+#: src/geocode_fr/geocode_api/models.py:10
+msgid "regions"
+msgstr "régions"
+
+#: src/geocode_fr/geocode_api/models.py:27
+msgid "department"
+msgstr "département"
+
+#: src/geocode_fr/geocode_api/models.py:28
+msgid "departments"
+msgstr "départements"
+
+#: src/geocode_fr/geocode_api/models.py:46
+msgid "municipality"
+msgstr "commune"
+
+#: src/geocode_fr/geocode_api/models.py:47
+msgid "municipalities"
+msgstr "communes"
+
+#: src/geocode_fr/geocode_api/models.py:64
+msgid "zipcode"
+msgstr "code postal"
+
+#: src/geocode_fr/geocode_api/models.py:65
+msgid "zipcodes"
+msgstr "codes postaux"
+
+#: src/geocode_fr/geocode_api/models.py:76
+msgid "way"
+msgstr "voie"
+
+#: src/geocode_fr/geocode_api/models.py:77
+msgid "ways"
+msgstr "voies"
+
+#: src/geocode_fr/geocode_api/models.py:90
+msgid "address"
+msgstr "adresse"
+
+#: src/geocode_fr/geocode_api/models.py:91
+msgid "addresses"
+msgstr "adresses"
+
+#: src/geocode_fr/geocode_fr/settings.py:121
+msgid "English"
+msgstr "Anglais"
+
+#: src/geocode_fr/geocode_fr/settings.py:122
+msgid "French"
+msgstr "Français"
+
+#: src/geocode_fr/geocode_fr/urls.py:22
+msgid "^admin/"
+msgstr ""

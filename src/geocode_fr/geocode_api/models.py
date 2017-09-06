@@ -1,11 +1,14 @@
 from django.contrib.gis.db import models
-from django.contrib.gis.forms.fields import PointField, PolygonField
+from django.contrib.gis.db.models import PolygonField, PointField
 from django.contrib.postgres import search
-
-from drf_extra_fields.geo_fields import PointField
+from django.utils.translation import ugettext_lazy as _
 
 
 class Region(models.Model):
+    class Meta:
+        verbose_name = _("region")
+        verbose_name_plural = _("regions")
+
     cog = models.CharField(max_length=2, primary_key=True)
     name = models.CharField(max_length=200)
     vectorized = search.SearchVectorField(null=True)
@@ -20,6 +23,10 @@ class Region(models.Model):
 
 
 class Department(models.Model):
+    class Meta:
+        verbose_name = _("department")
+        verbose_name_plural = _("departments")
+
     cog = models.CharField(max_length=3, primary_key=True)
     name = models.CharField(max_length=200)
     vectorized = search.SearchVectorField(null=True)
@@ -35,6 +42,10 @@ class Department(models.Model):
 
 
 class Municipality(models.Model):
+    class Meta:
+        verbose_name = _("municipality")
+        verbose_name_plural = _("municipalities")
+
     cog = models.CharField(max_length=5, primary_key=True)
     name = models.CharField(max_length=200)
     vectorized = search.SearchVectorField(null=True)
@@ -49,6 +60,10 @@ class Municipality(models.Model):
 
 
 class ZipCode(models.Model):
+    class Meta:
+        verbose_name = _("zipcode")
+        verbose_name_plural = _("zipcodes")
+
     code = models.CharField(max_length=5, primary_key=True)
     municipalities = models.ManyToManyField(Municipality)
 
@@ -57,6 +72,10 @@ class ZipCode(models.Model):
 
 
 class Way(models.Model):
+    class Meta:
+        verbose_name = _("way")
+        verbose_name_plural = _("ways")
+
     municipality = models.ForeignKey(Municipality, on_delete=models.PROTECT)
     name = models.CharField(max_length=200, null=True)
     vectorized = search.SearchVectorField(null=True)
@@ -67,6 +86,10 @@ class Way(models.Model):
 
 
 class Address(models.Model):
+    class Meta:
+        verbose_name = _("address")
+        verbose_name_plural = _("addresses")
+
     way = models.ForeignKey(Way, on_delete=models.PROTECT)
     number = models.CharField(max_length=20)
     repetition = models.CharField(max_length=20, null=True)

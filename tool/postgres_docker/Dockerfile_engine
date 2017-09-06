@@ -1,0 +1,18 @@
+FROM postgres:9.6
+
+RUN apt-get update && apt-get install -y \
+    binutils \
+    libproj-dev \
+    gdal-bin \
+    postgresql-9.6-postgis-2.3
+
+RUN localedef -i fr_FR -c -f UTF-8 -A /usr/share/locale/locale.alias fr_FR.UTF-8
+
+ENV LANG fr_FR.utf8
+ENV POSTGRES_INITDB_ARGS "--text-search-config=pg_catalog.french"
+
+ENV POSTGRES_DB geocode_fr
+ENV POSTGRES_USER geocode_fr
+ENV POSTGRES_PASSWORD geocode_fr
+
+#ADD ./docker-entrypoint-initdb.d/* /docker-entrypoint-initdb.d/

@@ -1,0 +1,9 @@
+FROM debian:jessie
+
+WORKDIR /var/lib/postgresql/data
+
+RUN chown 999:100 .
+
+VOLUME /var/lib/postgresql/data
+
+CMD ["/bin/true"]
